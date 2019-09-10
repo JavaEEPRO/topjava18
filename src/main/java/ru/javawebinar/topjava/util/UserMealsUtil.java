@@ -41,7 +41,7 @@ public class UserMealsUtil {
 
         Map<LocalDateTime, UserMeal> filteredMap = mealList
                                                            .stream()
-                                                           .filter(meal -> isBetween(meal.getDateTime(), startTime, endTime))
+                                                           .filter(meal -> TimeUtil.isBetween(meal.getDateTime(), startTime, endTime))
                                                            .collect(Collectors.toMap(UserMeal::getDateTime, UserMeal::clone));
 
                                                 filteredMap
@@ -74,11 +74,6 @@ public class UserMealsUtil {
     //
     private static UserMealWithExceed createWithExceed(UserMeal meal, boolean exceeded) {
         return new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
-    }
-
-    public static boolean isBetween(LocalDateTime localDateTime, LocalTime startTime, LocalTime endTime) {
-        LocalTime lt = localDateTime.toLocalTime();
-        return lt.compareTo(startTime) >= 0 && lt.compareTo(endTime) <= 0;
     }
 
     public static int caloriesPerDate(LocalDateTime dateTime) {
